@@ -15,7 +15,6 @@ Poor appointment coordination
 Repeated hospital visits
 
 Lack of structured digital records
-
 Mediqon backend solves this by:
 
 Preparing patients before consultation
