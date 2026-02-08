@@ -1,98 +1,201 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+🏥 Mediqon – Backend System
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Mediqon is a patient-centric healthcare coordination platform designed to streamline medical appointments, reduce waiting time, and improve doctor–patient workflow through secure digital systems.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This repository contains the backend implementation of Mediqon, built using NestJS and PostgreSQL, focusing on authentication, role-based access, and appointment management.
 
-## Description
+🎯 Project Objective
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Traditional healthcare systems suffer from:
 
-## Project setup
+Long waiting times
 
-```bash
-$ npm install
-```
+Poor appointment coordination
 
-## Compile and run the project
+Repeated hospital visits
 
-```bash
-# development
-$ npm run start
+Lack of structured digital records
 
-# watch mode
-$ npm run start:dev
+Mediqon backend solves this by:
 
-# production mode
-$ npm run start:prod
-```
+Preparing patients before consultation
 
-## Run tests
+Organizing appointments digitally
 
-```bash
-# unit tests
-$ npm run test
+Helping doctors manage queues efficiently
 
-# e2e tests
-$ npm run test:e2e
+Enforcing secure role-based access
 
-# test coverage
-$ npm run test:cov
-```
+🧠 System Roles
 
-## Deployment
+The system supports three user roles:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Role	Description
+Patient	Books appointments
+Doctor	Views queue & updates appointment status
+Hospital	Manages doctors & infrastructure (future scope)
+⚙️ Tech Stack
+Layer	Technology
+Framework	NestJS
+Language	TypeScript
+Database	PostgreSQL
+ORM	TypeORM
+Authentication	JWT
+Validation	class-validator
+Architecture	Modular (Domain-based)
+🏗️ Backend Architecture
+backend/
+├── src/
+│   ├── modules/
+│   │   ├── auth/
+│   │   ├── appointment/
+│   │   ├── doctor/
+│   │   └── hospital/
+│   ├── common/
+│   │   ├── guards/
+│   │   └── decorators/
+│   ├── config/
+│   └── main.ts
+├── .env.example
+├── package.json
+└── tsconfig.json
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+🔐 Authentication & Authorization
+Authentication
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+JWT-based login system
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Secure password hashing
 
-## Resources
+Token-based session handling
 
-Check out a few resources that may come in handy when working with NestJS:
+Authorization
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Role-based access control (RBAC)
 
-## Support
+Centralized guards
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Custom @Roles() decorator
 
-## Stay in touch
+✔ Clean separation of security and business logic
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+📅 Appointment Management Features
+Patient
 
-## License
+Book appointment
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Receive token number
+
+See expected consultation time
+
+Doctor
+
+View today’s appointment queue
+
+Prioritized & ordered token list
+
+Update appointment status:
+
+CHECKED_IN
+
+COMPLETED
+
+NO_SHOW
+
+🔄 Appointment Workflow
+Patient → Book Appointment
+        → Token Assigned
+        → Doctor Queue
+        → Status Update
+
+
+This reduces repeated visits and optimizes doctor time.
+
+🔌 API Overview (Key Endpoints)
+Authentication
+POST /auth/login
+
+Patient
+POST /appointments/book
+
+Doctor
+GET  /appointments/doctor/:doctorId/today
+PATCH /appointments/:id/status
+
+
+All protected routes require:
+
+Authorization: Bearer <JWT_TOKEN>
+
+🗄️ Database Tables
+Table	Purpose
+users	Stores user credentials & roles
+doctors	Doctor profiles & schedules
+hospitals	Hospital information
+appointments	Appointment & queue data
+🔐 Environment Setup
+
+Create a .env file using the template:
+
+.env.example
+
+PORT=3000
+
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=your_password
+DB_NAME=mediqon
+
+JWT_SECRET=your_secret_key
+
+
+⚠️ .env file is ignored in Git for security.
+
+▶️ How to Run the Backend
+# Install dependencies
+npm install
+
+# Start development server
+npm run start:dev
+
+
+Server runs at:
+
+http://localhost:3000
+
+🚀 Current Status
+
+✔ Authentication complete
+✔ Role-based access control
+✔ Appointment booking system
+✔ Doctor queue management
+✔ Production-ready backend foundation
+
+🔮 Future Scope (Major Project)
+
+AI-assisted pre-consultation guidance
+
+Health monitoring & reminders
+
+Digital medical records
+
+Charity & donation transparency
+
+Wearable device integration
+
+🎓 Academic Note
+
+This backend is developed as part of a minor academic project, with a clear roadmap for future expansion into a major project.
+
+The focus is on:
+
+Clean architecture
+
+Security
+
+Real-world healthcare workflow
+
+👨‍💻 Author
+Mediqon Project Team
+Backend Lead: Saicharan
