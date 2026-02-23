@@ -1,57 +1,46 @@
-import React from "react";
-
-const Hero = () => {
+import Image from "../assets/animi.png";
+import HeroScrollDemo from "./container-scroll-animation-demo"
+import FeaturesBento from "./FeaturesBento"
+export default function Hero() {
   return (
-    <section className="max-w-7xl mx-auto px-6 mt-6">
-      <div className="bg-[#1f2a63] rounded-[32px] px-10 py-14 grid md:grid-cols-2 items-center gap-10">
-        
-        {/* ===== LEFT CONTENT ===== */}
-        <div>
-          <h1 className="text-6xl font-extrabold text-white leading-tight">
-            Healthcare,
-            <br />
-            simplified for everyone
-          </h1>
+    <section className="relative bg-black text-white px-6 pt-24 pb-16 overflow-hidden">
 
-          <p className="mt-6 text-slate-200 text-lg max-w-lg">
-            Mediqon helps you understand your health early using AI-powered
-            analysis — so you can take the right action before problems
-            become serious.
-          </p>
+      {/* Background Glow */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-green-500/20 blur-[120px] rounded-full -z-10" />
 
-          <p className="mt-4 text-slate-300 max-w-md text-sm">
-            Check symptoms, track health reports, and get clear guidance —
-            all from your phone, without waiting in hospital queues.
-          </p>
+      <div className="max-w-6xl mx-auto text-center">
 
-          {/* ===== CTA ===== */}
-          <div className="mt-8 flex items-center gap-4">
-            <button className="bg-white text-[#1f2a63] px-7 py-3 rounded-full font-medium hover:bg-slate-100 transition">
-              Start Health Check
-            </button>
-
-            <span className="text-slate-300 text-sm">
-              Takes less than 2 minutes
-            </span>
-          </div>
-
-          {/* ===== TRUST LINE ===== */}
-          <p className="mt-6 text-xs text-slate-400">
-            Trusted guidance · Early detection · Privacy first
-          </p>
+        <div className="mb-6">
+          <span className="px-4 py-2 text-xs bg-green-500/10 text-green-400 rounded-full border border-green-500/30 tracking-wide">
+            Patient-Centric Digital Healthcare System
+          </span>
         </div>
 
-        {/* ===== RIGHT IMAGE ===== */}
-        <div className="flex justify-center">
-          <img
-            src="https://i.pinimg.com/736x/1e/71/ef/1e71ef3a80ef48e0deb30837461efefe.jpg"
-            alt="Doctor"
-            className="w-[280px] h-[360px] object-cover rounded-3xl"
-          />
-        </div>
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-medium leading-tight">
+          Healthcare that stays <br />
+          with you, not just the <br />
+          Hospital
+        </h1>
+
+        <p className="mt-6 text-gray-400 max-w-xl mx-auto text-sm md:text-base">
+          Smart digital healthcare built for patients, doctors, and hospitals.
+        </p>
+
+        <button className="mt-8 px-8 py-4 rounded-full bg-green-500 text-black font-medium transition duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(34,197,94,0.7)]">
+          Start Care →
+        </button>
+
       </div>
+
+      {/* Scroll Demo */}
+      <div className="mt-1">
+        <HeroScrollDemo />
+        
+      </div>
+     <FeaturesBento /> 
+
+      
+         
     </section>
   );
-};
-
-export default Hero;
+}
