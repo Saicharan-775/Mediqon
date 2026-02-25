@@ -1,14 +1,19 @@
 import React, { useState, useMemo } from "react";
+import { motion } from "framer-motion";
+import {
+  MagnifyingGlassIcon,
+  StarIcon,
+  FaceFrownIcon,
+} from "@heroicons/react/24/solid";
 
 /* ================= DATA ================= */
 
 const specialties = [
-  { label: "Orthopedists", icon: "🦴" },
-  { label: "Neurology", icon: "🧠" },
-  { label: "Gynecology", icon: "👶" },
-  { label: "Psychiatry", icon: "🧠" },
-  { label: "Shoulder", icon: "💪" },
-  { label: "Eye care", icon: "👁️" },
+  { label: "Orthopedists" },
+  { label: "Neurology" },
+  { label: "Gynecology" },
+  { label: "Psychiatry" },
+  { label: "Eye Care" },
 ];
 
 const doctors = [
@@ -19,16 +24,8 @@ const doctors = [
     experience: "12 yrs",
     rating: 4.8,
     available: "Today",
-    image: "https://plus.unsplash.com/premium_photo-1681967035389-84aabd80cb1e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTd8fGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D",
-  },
-  {
-    name: "Dr. Pimple Popper",
-    role: "Psychiatrist",
-    specialty: "Psychiatry",
-    experience: "9 yrs",
-    rating: 4.6,
-    available: "Tomorrow",
-    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1550831107-1553da8c8464?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Dr. Sherry Ross",
@@ -37,21 +34,12 @@ const doctors = [
     experience: "15 yrs",
     rating: 4.9,
     available: "Today",
-    image: "https://imgs.search.brave.com/Xph0n_Ttbk-DRp3BGhZWPQ1PtBzutbc43bD2rnOdOPI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9tYXR1/cmUtZmVtYWxlLWRv/Y3Rvci10YWtpbmct/bm8tMjM4NjY4Ny5q/cGc",
+    image:
+      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=800&q=80",
   },
-  {
-    name: "Dr. Jen Gunter",
-    role: "Neurologist",
-    specialty: "Neurology",
-    experience: "11 yrs",
-    rating: 4.7,
-    available: "This week",
-    image: "https://images.unsplash.com/photo-1550831107-1553da8c8464?auto=format&fit=crop&w=800&q=80",}
-
 ];
 
-
-/* ================= COMPONENT ================= */
+/* ================= MAIN COMPONENT ================= */
 
 export default function Doctors() {
   const [activeSpecialty, setActiveSpecialty] = useState("All");
@@ -60,8 +48,7 @@ export default function Doctors() {
   const filteredDoctors = useMemo(() => {
     return doctors.filter((doc) => {
       const matchesSpecialty =
-        activeSpecialty === "All" ||
-        doc.specialty === activeSpecialty;
+        activeSpecialty === "All" || doc.specialty === activeSpecialty;
 
       const matchesQuery =
         doc.name.toLowerCase().includes(query.toLowerCase()) ||
@@ -72,121 +59,175 @@ export default function Doctors() {
   }, [activeSpecialty, query]);
 
   return (
-    <section className="max-w-7xl mx-auto px-6 mt-20">
+    <section className="relative bg-black text-white py-28">
+      <div className="max-w-7xl mx-auto px-6">
 
-      {/* ===== HEADER ===== */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-        <h2 className="text-2xl font-semibold text-slate-900">
-          Book an appointment
-        </h2>
+        {/* HEADER */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-10">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-semibold">
+              Book an Appointment
+            </h2>
+            <p className="text-neutral-400 mt-2">
+              Connect with experienced specialists instantly.
+            </p>
+          </div>
 
-        {/* SEARCH */}
-        <input
-          type="text"
-          placeholder="Search doctor or specialty"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="w-full md:w-72 px-4 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        />
-      </div>
+          {/* SEARCH */}
+          <div className="relative w-full md:w-80">
+            <MagnifyingGlassIcon className="w-4 h-4 text-neutral-500 absolute left-4 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Search doctor or specialty"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="w-full bg-neutral-900 border border-white/10 
+                         rounded-full pl-10 pr-4 py-2.5 text-sm
+                         focus:outline-none focus:border-green-500
+                         transition"
+            />
+          </div>
+        </div>
 
-      {/* ===== SPECIALTY FILTERS ===== */}
-      <div className="flex flex-wrap gap-3 mb-10">
-        <FilterButton
-          label="All"
-          active={activeSpecialty === "All"}
-          onClick={() => setActiveSpecialty("All")}
-        />
-
-        {specialties.map((item) => (
-          <FilterButton
-            key={item.label}
-            label={item.label}
-            icon={item.icon}
-            active={activeSpecialty === item.label}
-            onClick={() => setActiveSpecialty(item.label)}
+        {/* FILTER PILLS */}
+        <div className="flex flex-wrap gap-3 mb-12">
+          <FilterPill
+            label="All"
+            active={activeSpecialty === "All"}
+            onClick={() => setActiveSpecialty("All")}
           />
-        ))}
-      </div>
+          {specialties.map((item) => (
+            <FilterPill
+              key={item.label}
+              label={item.label}
+              active={activeSpecialty === item.label}
+              onClick={() => setActiveSpecialty(item.label)}
+            />
+          ))}
+        </div>
 
-      {/* ===== DOCTOR CARDS ===== */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {filteredDoctors.map((doc) => (
-          <DoctorCard key={doc.name} doctor={doc} />
-        ))}
-
-        {filteredDoctors.length === 0 && (
-          <p className="text-slate-500 text-sm">
-            No doctors found.
-          </p>
-        )}
+        {/* GRID */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {filteredDoctors.length > 0 ? (
+            filteredDoctors.map((doc, index) => (
+              <DoctorCard key={doc.name} doctor={doc} index={index} />
+            ))
+          ) : (
+            <EmptyState
+              onReset={() => {
+                setActiveSpecialty("All");
+                setQuery("");
+              }}
+            />
+          )}
+        </div>
       </div>
     </section>
   );
 }
 
-/* ================= SUB COMPONENTS ================= */
+/* ================= FILTER ================= */
 
-function FilterButton({ label, icon, active, onClick }) {
+function FilterPill({ label, active, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm border transition
+      className={`px-4 py-2 rounded-full text-sm border transition-all duration-300
         ${
           active
-            ? "bg-[#1f2a63] text-white border-[#1f2a63]"
-            : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"
+            ? "bg-green-500 text-black border-green-500"
+            : "bg-neutral-900 text-neutral-400 border-white/10 hover:border-green-500/40"
         }`}
     >
-      {icon && <span>{icon}</span>}
       {label}
     </button>
   );
 }
 
-function DoctorCard({ doctor }) {
+/* ================= DOCTOR CARD ================= */
+
+function DoctorCard({ doctor, index }) {
   return (
-    <div className="bg-white rounded-3xl p-5 shadow-sm hover:shadow-md transition flex flex-col">
-
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1 }}
+      viewport={{ once: true }}
+      className="group bg-neutral-900/70 backdrop-blur-xl 
+                 border border-white/10 rounded-2xl overflow-hidden
+                 hover:border-green-500/40 
+                 transition-all duration-300
+                 hover:shadow-[0_0_40px_rgba(34,197,94,0.15)]"
+    >
       {/* IMAGE */}
-      <div className="w-full h-[170px] rounded-2xl overflow-hidden bg-slate-100">
-      <img
-  src={doctor.image}
-  alt={doctor.name}
-  className="w-full h-full object-cover"
-  onError={(e) => {
-    e.target.src =
-      "https://via.placeholder.com/400x300?text=Doctor+Image";
-  }}
-/>
-
+      <div className="relative h-48 overflow-hidden">
+        <img
+          src={doctor.image}
+          alt={doctor.name}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          onError={(e) => {
+            e.target.src =
+              "https://via.placeholder.com/400x300?text=Doctor";
+          }}
+        />
       </div>
 
       {/* INFO */}
-      <div className="mt-4 space-y-1 flex-1">
-        <h3 className="font-semibold text-slate-900">
-          {doctor.name}
-        </h3>
-        <p className="text-sm text-slate-500">
-          {doctor.role}
-        </p>
+      <div className="p-5">
+        <h3 className="font-semibold text-lg">{doctor.name}</h3>
+        <p className="text-sm text-neutral-400">{doctor.role}</p>
 
-        <div className="flex items-center gap-3 text-xs text-slate-500 mt-2">
-          <span>⭐ {doctor.rating}</span>
+        <div className="flex items-center gap-4 text-xs text-neutral-400 mt-3">
+          <span className="flex items-center gap-1">
+            <StarIcon className="w-4 h-4 text-yellow-400" />
+            {doctor.rating}
+          </span>
           <span>{doctor.experience}</span>
         </div>
 
-        <p className="text-xs text-green-600 mt-1">
+        <p className="text-xs text-green-400 mt-2">
           Available {doctor.available}
         </p>
+
+        {/* BUTTON */}
+        <button className="mt-5 w-full rounded-full bg-green-500 text-black py-2.5 text-sm font-medium 
+                           hover:bg-green-400 transition">
+          Book Appointment
+        </button>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ================= EMPTY STATE ================= */
+
+function EmptyState({ onReset }) {
+  return (
+    <div className="col-span-full flex flex-col items-center justify-center 
+                    py-20 text-center">
+
+      <div className="w-16 h-16 rounded-full bg-neutral-900 
+                      border border-white/10 
+                      flex items-center justify-center mb-6">
+        <FaceFrownIcon className="w-8 h-8 text-neutral-500" />
       </div>
 
-      {/* ACTION */}
+      <h3 className="text-xl font-semibold text-white">
+        No Doctors Found
+      </h3>
+
+      <p className="text-neutral-400 mt-2 max-w-md">
+        We couldn't find any doctors matching your search or filter.
+        Try adjusting your keywords.
+      </p>
+
       <button
-        onClick={() => alert(`Appointment booked with ${doctor.name}!`)}
-        className="mt-4 w-full bg-[#4f46e5] hover:bg-[#4338ca] transition text-white py-2.5 rounded-xl text-sm font-medium"
+        onClick={onReset}
+        className="mt-6 px-6 py-2.5 rounded-full 
+                   bg-green-500 text-black text-sm font-medium
+                   hover:bg-green-400 transition"
       >
-        Book Appointment
+        Reset Filters
       </button>
     </div>
   );

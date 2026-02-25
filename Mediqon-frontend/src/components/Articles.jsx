@@ -1,90 +1,104 @@
 import React from "react";
+import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
+import { motion } from "framer-motion";
 
 const articles = [
   {
     title: "AI Health Insights",
-    subtitle: "Early signals your body gives",
-    bg: "bg-[#F5E889]",
-    icon: "🧠",
+    subtitle: "Early signals your body gives before conditions worsen.",
   },
   {
     title: "Find the Right Doctor",
-    subtitle: "How specialists make a difference",
-    bg: "bg-[#C7EED8]",
-    icon: "👨‍⚕️",
+    subtitle: "How choosing the right specialist improves outcomes.",
   },
   {
     title: "Medicines & Recovery",
-    subtitle: "What helps healing faster",
-    bg: "bg-[#F6CCD9]",
-    icon: "💊",
+    subtitle: "Best practices that support faster healing.",
   },
   {
     title: "Lab Tests Explained",
-    subtitle: "Why reports matter early",
-    bg: "bg-[#C9DFFF]",
-    icon: "🧪",
+    subtitle: "Understanding reports before problems escalate.",
   },
 ];
 
-const Articles = () => {
+export default function Articles() {
   return (
-    <section className="max-w-7xl mx-auto px-6 mt-24 pb-28">
+    <section className="bg-black py-32">
+      <div className="max-w-7xl mx-auto px-6">
 
-      {/* HEADER */}
-      <div className="mb-10">
-        <h2 className="text-3xl font-semibold text-slate-900">
-          Health insights & guides
-        </h2>
-        <p className="text-slate-500 mt-2 max-w-lg">
-          Simple explanations designed to help you understand your health
-          before problems become serious.
-        </p>
-      </div>
+        {/* HEADER */}
+        <div className="mb-16 max-w-2xl">
+          <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight">
+            Health insights & guides
+          </h2>
+          <p className="text-neutral-400 mt-4 leading-relaxed">
+            Clear, expert-backed explanations to help you understand your health
+            before problems become serious.
+          </p>
+        </div>
 
-      {/* CARDS */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {articles.map((item) => (
-          <ArticleCard key={item.title} item={item} />
-        ))}
-      </div>
-    </section>
-  );
-};
+        {/* GRID */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-export default Articles;
+          {articles.map((item, index) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.08 }}
+              viewport={{ once: true }}
+              className="group relative rounded-2xl p-6
+                         bg-neutral-950
+                         border border-neutral-800
+                         transition-all duration-500 ease-out
+                         cursor-pointer
+                         hover:-translate-y-2
+                         hover:border-green-500/60
+                         hover:shadow-[0_10px_40px_rgba(34,197,94,0.15)]"
+            >
 
-/* ===== CARD ===== */
+              {/* Green Hover Highlight Overlay */}
+              <div className="absolute inset-0 rounded-2xl 
+                              bg-gradient-to-br from-green-500/10 to-transparent
+                              opacity-0 
+                              group-hover:opacity-100
+                              transition duration-500 pointer-events-none" />
 
-function ArticleCard({ item }) {
-  return (
-    <div
-      className={`${item.bg} rounded-[28px] p-6 h-[180px]
-      flex flex-col justify-between cursor-pointer
-      hover:scale-[1.02] transition`}
-    >
-      {/* TOP */}
-      <div>
-        <h3 className="font-semibold text-slate-900">
-          {item.title}
-        </h3>
-        <p className="text-sm text-slate-700 mt-1">
-          {item.subtitle}
-        </p>
-      </div>
+              {/* Title */}
+              <h3 className="relative text-white font-medium text-lg tracking-tight
+                             transition-colors duration-300
+                             group-hover:text-green-400">
+                {item.title}
+              </h3>
 
-      {/* BOTTOM */}
-      <div className="flex items-center justify-between">
-        {/* ICON */}
-        <span className="text-4xl opacity-30">
-          {item.icon}
-        </span>
+              {/* Subtitle */}
+              <p className="relative text-neutral-400 text-sm mt-3 leading-relaxed">
+                {item.subtitle}
+              </p>
 
-        {/* ARROW */}
-        <div className="w-10 h-10 rounded-full bg-[#1f2a63] flex items-center justify-center text-white">
-          →
+              {/* Arrow */}
+              <div className="absolute bottom-6 right-6
+                              w-8 h-8 rounded-full
+                              bg-neutral-900
+                              border border-neutral-800
+                              flex items-center justify-center
+                              transition-all duration-300
+                              group-hover:border-green-500/60
+                              group-hover:bg-green-500/10">
+                <ArrowUpRightIcon
+                  className="w-4 h-4 text-neutral-400 
+                             transition-all duration-300
+                             group-hover:text-green-400
+                             group-hover:translate-x-1 
+                             group-hover:-translate-y-1"
+                />
+              </div>
+
+            </motion.div>
+          ))}
+
         </div>
       </div>
-    </div>
+    </section>
   );
 }
