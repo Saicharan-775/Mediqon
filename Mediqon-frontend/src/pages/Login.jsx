@@ -27,7 +27,7 @@ export default function Login(){
 
     try {
       const res = await API.post("/auth/login", form);
-      const { access_token: token } = res.data;
+      const { accessToken: token } = res.data;
       login(token);
       // Direct navigate after login
       setTimeout(() => navigate("/bookings"), 100);

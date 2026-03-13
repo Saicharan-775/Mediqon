@@ -18,8 +18,9 @@ export default function Dashboard() {
       const res = await API.get('/auth/profile');
       setProfile(res.data);
     } catch (err) {
-      setError('Session expired. Please login again.');
-      logout();
+      console.error('Profile fetch failed:', err);
+      setError('Could not load profile details.');
+      // Don't logout - token valid for other endpoints
     } finally {
       setLoading(false);
     }

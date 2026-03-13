@@ -7,6 +7,7 @@ import {
   Get,
   Param,
   Patch,
+  Req,
 } from '@nestjs/common';
 import { AppointmentService } from './appointment.service';
 import { BookAppointmentDto } from './dto/book-appointment.dto';
@@ -23,46 +24,30 @@ export class AppointmentController {
     private readonly appointmentService: AppointmentService,
   ) {}
 
-    @Post('book')
-    @Post('book')
-    @Roles('PATIENT')
-    @Get('doctor/:doctorId/today')
-    @Roles('DOCTOR')
-    @Patch(':id/status')
-    @Roles('DOCTOR')
+@Get('my')
+  @Roles('PATIENT')
+  async getMyAppointments(@Req() req) {
+    return this.appointmentService.getMyAppointments(req.user.userId);
+  }
 
-  @UsePipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-    }),
-  )
+  @Post('book')
+  @Roles('PATIENT')
+  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }))
   async book(@Body() body: BookAppointmentDto) {
     return this.appointmentService.bookAppointment(body);
   }
+
   @Get('doctor/:doctorId/today')
-async getTodayQueue(
-  @Param('doctorId') doctorId: string,
-) {
-  return this.appointmentService.getTodayQueue(doctorId);
-}
-@Patch(':id/status')
-@UsePipes(
-  new ValidationPipe({
-    whitelist: true,
-    forbidNonWhitelisted: true,
-    transform: true,
-  }),
-)
-async updateStatus(
-  @Param('id') appointmentId: string,
-  @Body() body: UpdateAppointmentStatusDto,
-) {
-  return this.appointmentService.updateAppointmentStatus(
-    appointmentId,
-    body.status,
-  );
-}
+  @Roles('DOCTOR')
+  async getTodayQueue(@Param('doctorId') doctorId: string) {
+    return this.appointmentService.getTodayQueue(doctorId);
+  }
+
+  @Patch(':id/status')
+  @Roles('DOCTOR')
+  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }))
+  async updateStatus(@Param('id') appointmentId: string, @Body() body: UpdateAppointmentStatusDto) {
+    return this.appointmentService.updateAppointmentStatus(appointmentId, body.status);
+  }
 
 }

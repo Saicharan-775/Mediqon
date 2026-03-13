@@ -1,12 +1,8 @@
-# Project TODO
+# TypeScript Error Fix TODO
 
-**Auth Integration** (Complete)
-- [x] All auth flows, CORS, DTO matching
+## Steps:
+- [x] Step 1: Edit appointment.controller.ts - Fix @Request() to @Req()
+- [x] Step 2: Edit auth.controller.ts - Fix import and @Request() to @Req()
+- [x] Step 3: Test compilation with npm start
+- [x] Step 4: Mark complete
 
-**Bookings Page** (Complete)
-- [x] src/pages/Bookings.jsx created ✓
-- [x] Doctors.jsx 13 doctors ✓
-- [x] Login → /bookings ✓
-- [x] /bookings route protected ✓
-- [ ] Navbar Bookings link
-- [x] Mock bookings UI ✓

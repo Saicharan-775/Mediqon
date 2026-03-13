@@ -141,4 +141,24 @@ async updateAppointmentStatus(
   return this.appointmentRepository.save(appointment);
 }
 
+async getMyAppointments(patientId: string) {
+  const appointments = await this.appointmentRepository.find({
+    where: { patient: { id: patientId } },
+    relations: ['doctor', 'hospital'],
+    order: {
+      appointmentDate: 'DESC',
+      expectedStartTime: 'ASC',
+    },
+  });
+
+  return appointments.map(appointment => ({
+    id: appointment.id,
+    doctor: appointment.doctor.name,
+    specialty: appointment.doctor.specialization,
+    date: appointment.appointmentDate,
+    time: appointment.expectedStartTime,
+    status: appointment.status.toLowerCase().replace('_', ' '),
+  }));
+}
+
 }
