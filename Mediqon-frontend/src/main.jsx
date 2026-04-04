@@ -1,3 +1,8 @@
+/**
+ * Mediqon - High-Fidelity Healthcare Platform
+ * Specialized in immersive user experiences, AI integration, and 3D diagnostics.
+ * @version 1.0.0
+ */
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
