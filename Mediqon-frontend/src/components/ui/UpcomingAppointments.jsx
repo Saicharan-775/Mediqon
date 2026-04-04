@@ -2,38 +2,8 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import { Calendar, Clock, XCircle, Edit3, Video, MapPin } from 'lucide-react';
 
-const mockAppointments = [
-  {
-    id: 1,
-    doctor: 'Dr. Sarah Johnson',
-    specialty: 'Cardiology',
-    date: 'Today',
-    time: '10:30 AM',
-    type: 'Video',
-    status: 'confirmed',
-    price: 45,
-  },
-  {
-    id: 2,
-    doctor: 'Dr. Michael Chen',
-    specialty: 'Neurology',
-    date: 'Tomorrow',
-    time: '02:00 PM',
-    type: 'Clinic',
-    status: 'pending',
-    price: 50,
-  },
-  {
-    id: 3,
-    doctor: 'Dr. Emma Wilson',
-    specialty: 'Dental',
-    date: 'Mon, Mar 23',
-    time: '11:00 AM',
-    type: 'Clinic',
-    status: 'cancelled',
-    price: 35,
-  },
-];
+// Connected to real appointments data from API
+// Format matches backend getMyAppointments response
 
 const statusStyles = {
   confirmed: 'border-emerald-300/50 bg-emerald-500/20 text-emerald-100',
@@ -41,7 +11,7 @@ const statusStyles = {
   cancelled: 'border-rose-300/50 bg-rose-500/20 text-rose-100',
 };
 
-const UpcomingAppointments = ({ appointments = mockAppointments }) => {
+const UpcomingAppointments = ({ appointments = [] }) => {
   return (
     <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-5 shadow-xl shadow-slate-950/50 backdrop-blur-xl sm:p-8">
       <div className="mb-7 flex items-center gap-3">

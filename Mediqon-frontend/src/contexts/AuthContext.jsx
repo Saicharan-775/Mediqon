@@ -16,7 +16,7 @@ export function AuthProvider({ children }) {
     } else {
       setLoading(false);
     }
-  }, []);
+  }, [token]);
 
   const fetchProfile = async () => {
     try {

@@ -20,34 +20,54 @@ import { RolesGuard } from '../../common/guards/roles.guard';
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('appointments')
 export class AppointmentController {
-  constructor(
-    private readonly appointmentService: AppointmentService,
-  ) {}
+  constructor(private readonly appointmentService: AppointmentService) {}
 
-@Get('my')
-  @Roles('PATIENT')
+  @Get('my')
+  @Roles('patient')
   async getMyAppointments(@Req() req) {
     return this.appointmentService.getMyAppointments(req.user.userId);
   }
 
   @Post('book')
-  @Roles('PATIENT')
-  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }))
+  @Roles('patient')
+  @UsePipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  )
   async book(@Body() body: BookAppointmentDto) {
     return this.appointmentService.bookAppointment(body);
   }
 
   @Get('doctor/:doctorId/today')
-  @Roles('DOCTOR')
+  @Roles('doctor')
   async getTodayQueue(@Param('doctorId') doctorId: string) {
     return this.appointmentService.getTodayQueue(doctorId);
   }
 
   @Patch(':id/status')
-  @Roles('DOCTOR')
-  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }))
-  async updateStatus(@Param('id') appointmentId: string, @Body() body: UpdateAppointmentStatusDto) {
-    return this.appointmentService.updateAppointmentStatus(appointmentId, body.status);
+  @Roles('doctor', 'patient')
+  @UsePipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  )
+  async updateStatus(
+    @Param('id') appointmentId: string,
+    @Body() body: UpdateAppointmentStatusDto,
+  ) {
+    console.log(
+      `📡 PATCH RECEIVED: Appointment ${appointmentId} -> Status: ${body.status}`,
+    );
+    const result = await this.appointmentService.updateAppointmentStatus(
+      appointmentId,
+      body.status,
+    );
+    console.log(`✅ PATCH SUCCESS: ${appointmentId} is now ${body.status}`);
+    return result;
   }
-
 }

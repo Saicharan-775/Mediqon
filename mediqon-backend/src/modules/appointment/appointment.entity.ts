@@ -56,6 +56,12 @@ export class Appointment {
   })
   priority: AppointmentPriority;
 
+  @Column({ nullable: true })
+  patient_name: string;
+
+  @Column({ nullable: true })
+  reason: string;
+
   @Column()
   expectedStartTime: string;
 

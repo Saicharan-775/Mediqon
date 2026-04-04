@@ -1,36 +1,34 @@
-import {
-  VideoCameraIcon,
-  UserGroupIcon,
-  BeakerIcon,
-  ClipboardDocumentListIcon,
-  ArrowRightIcon,
-} from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
+import { Icon } from "@iconify/react";
 
 const actions = [
   {
-    title: "Instant Video Consultation",
-    subtitle: "Connect with specialists in  under 60 seconds.",
-    icon: VideoCameraIcon,
+    title: "Video Consultation",
+    subtitle: "Connect with top specialists in under 60 seconds.",
+    icon: "solar:videocamera-record-bold-duotone",
     gradient: "from-emerald-500/20 to-green-500/5",
+    color: "text-emerald-400",
   },
   {
-    title: "Find Doctors Near You",
-    subtitle: "Book verified appointments instantly.",
-    icon: UserGroupIcon,
+    title: "Find Doctors",
+    subtitle: "Book verified appointments with experts instantly.",
+    icon: "solar:users-group-rounded-bold-duotone",
     gradient: "from-blue-500/20 to-indigo-500/5",
+    color: "text-blue-400",
   },
   {
-    title: "24/7 Medicines",
-    subtitle: "Order essentials anytime, anywhere.",
-    icon: ClipboardDocumentListIcon,
+    title: "24/7 Pharmacy",
+    subtitle: "Order healthcare essentials anytime, anywhere.",
+    icon: "solar:pills-bold-duotone",
     gradient: "from-pink-500/20 to-rose-500/5",
+    color: "text-rose-400",
   },
   {
-    title: "Lab Tests",
-    subtitle: "Home sample collection & reports.",
-    icon: BeakerIcon,
+    title: "Lab Services",
+    subtitle: "Home sample collection with digital reports.",
+    icon: "solar:test-tube-bold-duotone",
     gradient: "from-purple-500/20 to-violet-500/5",
+    color: "text-purple-400",
   },
 ];
 
@@ -59,66 +57,48 @@ export default function QuickActions() {
         </div>
 
         {/* CARDS GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          {actions.map((item, index) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: true }}
+              className="group relative rounded-[2rem] p-8
+                         bg-white/[0.02] border border-white/[0.05]
+                         transition-all duration-500 hover:bg-white/[0.04]
+                         hover:border-white/10"
+            >
+              <div
+                className={`absolute inset-0 rounded-[2rem] opacity-0 
+                            group-hover:opacity-100 transition duration-700
+                            bg-gradient-to-br ${item.gradient} blur-2xl`}
+              />
 
-          {actions.map((item, index) => {
-            const Icon = item.icon;
+              <div className={`relative w-16 h-16 rounded-2xl
+                               bg-white/[0.03] border border-white/10
+                               flex items-center justify-center
+                               mb-8 transition-all duration-500
+                               group-hover:scale-110 group-hover:bg-white/10 ${item.color}`}>
+                <Icon icon={item.icon} className="w-9 h-9 transition-transform" />
+              </div>
 
-            return (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                viewport={{ once: true }}
-                className="group relative rounded-3xl p-8
-                           bg-neutral-900/60 backdrop-blur-2xl
-                           border border-white/5
-                           transition-all duration-500
-                           hover:-translate-y-2
-                           hover:border-white/20"
-              >
+              <h3 className="relative text-white text-xl font-bold font-jakarta">
+                {item.title}
+              </h3>
 
-                {/* Gradient glow */}
-                <div
-                  className={`absolute inset-0 rounded-3xl opacity-0 
-                              group-hover:opacity-100 transition duration-500
-                              bg-gradient-to-br ${item.gradient}`}
-                />
+              <p className="relative text-neutral-400 text-sm mt-3 leading-relaxed tracking-wide">
+                {item.subtitle}
+              </p>
 
-                {/* Icon */}
-                <div className="relative w-14 h-14 rounded-2xl
-                                bg-neutral-800 border border-white/10
-                                flex items-center justify-center
-                                mb-8 transition
-                                group-hover:bg-black">
-                  <Icon className="w-7 h-7 text-green-400 transition group-hover:scale-110" />
-                </div>
+              <div className="mt-8 flex items-center gap-2 text-white/40 group-hover:text-white transition-colors">
+                 <span className="text-[10px] font-bold uppercase tracking-widest">Explore Now</span>
+                 <Icon icon="solar:arrow-right-linear" className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </div>
 
-                {/* Text */}
-                <h3 className="relative text-white text-lg font-semibold">
-                  {item.title}
-                </h3>
-
-                <p className="relative text-neutral-400 text-sm mt-3 leading-relaxed">
-                  {item.subtitle}
-                </p>
-
-                {/* Arrow */}
-                <div className="absolute bottom-8 right-8 
-                                w-7 h-7 rounded-full
-                                bg-black border border-white/10
-                                flex items-center justify-center
-                                transition-all duration-300
-                                group-hover:bg-green-500
-                                group-hover:border-green-500">
-                  <ArrowRightIcon className="w-4 h-4 text-white transition-transform duration-300 group-hover:translate-x-1" />
-                </div>
-
-              </motion.div>
-            );
-          })}
-
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

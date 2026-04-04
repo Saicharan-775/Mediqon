@@ -7,8 +7,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: 'http://localhost:5173',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: [
+      'http://localhost:3001',
+      'http://localhost:3000',
+      'http://localhost:5173',
+      'http://192.168.17.187:3001',
+      'http://localhost',
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
   });
 
@@ -21,5 +27,6 @@ async function bootstrap() {
   );
 
   await app.listen(3000);
+  console.log('Application is running on: http://localhost:3000');
 }
 bootstrap();

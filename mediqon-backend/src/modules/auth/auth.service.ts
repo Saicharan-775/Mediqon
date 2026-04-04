@@ -4,22 +4,25 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { User, UserRole } from './user.entity';
 import { JwtService } from '@nestjs/jwt';
+
 @Injectable()
 export class AuthService {
-    constructor(
+  constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
     private jwtService: JwtService,
-    ) {}
+  ) {}
 
-
-  async register(email: string, password: string, role: string) {
-    // basic safety checks
+  async register(
+    email: string,
+    password: string,
+    role: string,
+    fullName?: string,
+  ) {
     if (!email || !password) {
       throw new BadRequestException('Email and password are required');
     }
 
-    // check if user already exists
     const existingUser = await this.userRepository.findOne({
       where: { email },
     });
@@ -28,58 +31,51 @@ export class AuthService {
       throw new BadRequestException('User already exists');
     }
 
-    // hash password
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // create user entity
     const user = this.userRepository.create({
-    email,
-    password: hashedPassword,
-    role: role as UserRole,
+      email,
+      password: hashedPassword,
+      role: role as UserRole,
+      fullName,
     });
 
-
-    // save to database
     const savedUser = await this.userRepository.save(user);
 
-    // never return password
     delete (savedUser as any).password;
 
     return savedUser;
   }
+
   async login(email: string, password: string) {
-  // 1. Find user by email
-  const user = await this.userRepository.findOne({
-    where: { email },
-  });
+    const user = await this.userRepository.findOne({
+      where: { email },
+    });
 
-  if (!user) {
-    throw new BadRequestException('Invalid email or password');
+    if (!user) {
+      throw new BadRequestException('Invalid email or password');
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      throw new BadRequestException('Invalid email or password');
+    }
+
+    delete (user as any).password;
+
+    const payload = {
+      sub: user.id,
+      email: user.email,
+      role: user.role,
+      fullName: user.fullName,
+    };
+
+    const accessToken = await this.jwtService.signAsync(payload);
+
+    return {
+      accessToken,
+      user,
+    };
   }
-
-  // 2. Compare password
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-
-  if (!isPasswordValid) {
-    throw new BadRequestException('Invalid email or password');
-  }
-
-  // 3. Never return password
-  delete (user as any).password;
-
-  const payload = {
-  sub: user.id,
-  email: user.email,
-  role: user.role,
-};
-
-const accessToken = await this.jwtService.signAsync(payload);
-
-return {
-  accessToken,
-  user,
-};
-
-}
-
 }

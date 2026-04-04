@@ -29,6 +29,9 @@ export class User {
   })
   role: UserRole;
 
+  @Column({ nullable: true })
+  fullName: string;
+
   @CreateDateColumn()
   createdAt: Date;
 }

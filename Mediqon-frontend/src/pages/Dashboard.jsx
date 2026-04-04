@@ -1,80 +1,242 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import API from '../lib/api';
-import Navbar from '../components/Navbar';
+import { api } from '../lib/api';
+import { motion } from 'framer-motion';
+import { 
+  HeartPulse, Calendar as CalendarIcon, ShieldCheck, 
+  Activity, ArrowRight, Clock, MapPin, Search, ChevronRight, UserCircle, Bot, FileText
+} from 'lucide-react';
+import VoiceAssistant from '../components/VoiceAssistant';
 
 export default function Dashboard() {
-  const { user, logout } = useAuth();
-  const [profile, setProfile] = useState(null);
+  const { user } = useAuth();
+  const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
-  useEffect(() => {
-    fetchProfile();
-  }, []);
-
-  const fetchProfile = async () => {
+  const fetchData = useCallback(async () => {
     try {
-      const res = await API.get('/auth/profile');
-      setProfile(res.data);
+      const data = await api.getBookings();
+      setAppointments(data || []);
     } catch (err) {
-      console.error('Profile fetch failed:', err);
-      setError('Could not load profile details.');
-      // Don't logout - token valid for other endpoints
+      console.error('Dashboard data fetch failed:', err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  if (loading) {
-    return <div className="flex justify-center items-center min-h-screen bg-neutral-950">Loading Dashboard...</div>;
-  }
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const handleStartAssistant = () => window.dispatchEvent(new CustomEvent('trigger-vapi'));
+  const isDoctor = user?.role?.toLowerCase() === 'doctor';
+
+  const upcomingApt = appointments.find(a => a.status !== 'cancelled' && a.status !== 'completed');
+  const activeCount = appointments.filter(a => a.status !== 'cancelled' && a.status !== 'completed').length;
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white">
-      <Navbar />
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        <div className="bg-neutral-900 rounded-2xl p-8 border border-neutral-800 shadow-2xl">
-          <h1 className="text-3xl font-bold mb-8">Dashboard</h1>
-          
-          {error && (
-            <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-xl mb-6 text-red-400">
-              {error}
+    <div className="w-full max-w-7xl mx-auto flex flex-col gap-8 pb-10 fade-in">
+      {/* Header */}
+      <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground tracking-tight">
+            Hello, {user?.fullName?.split(' ')[0] || 'User'}
+          </h1>
+          <p className="text-xs text-muted-foreground mt-1 font-medium italic">
+            Patient Medical Overview • {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+          </p>
+        </div>
+        <button 
+          onClick={handleStartAssistant}
+          className="flex items-center gap-2 bg-emerald-600 text-white px-5 py-2 rounded-xl text-[11px] font-bold uppercase tracking-widest hover:bg-emerald-500 transition-all shadow-sm w-fit active:scale-95"
+        >
+          <Activity className="h-3.5 w-3.5" />
+          Voice Consultation
+        </button>
+      </header>
+      
+      {/* Metrics Row */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+         <div className="bg-card/50 border border-border rounded-2xl p-6 shadow-sm">
+            <div className="flex justify-between items-start mb-4">
+              <div className="h-9 w-9 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+                <HeartPulse className="h-4 w-4" />
+              </div>
+              <span className="text-[10px] font-bold text-emerald-500 tracking-tight uppercase">Optimal</span>
             </div>
-          )}
+            <div>
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Cardiac Status</p>
+              <h2 className="text-2xl font-bold text-foreground mt-1">Normal</h2>
+            </div>
+         </div>
 
-          <div className="space-y-6">
-            <div className="bg-neutral-800 p-6 rounded-xl">
-              <h2 className="text-xl font-semibold mb-4">Welcome, {user?.name || profile?.name}!</h2>
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <span className="text-neutral-400">Email:</span>
-                  <p>{user?.email || profile?.email}</p>
-                </div>
-                <div>
-                  <span className="text-neutral-400">Role:</span>
-                  <p className="capitalize">{user?.role || profile?.role}</p>
-                </div>
+         <div className="bg-card/50 border border-border rounded-2xl p-6 shadow-sm">
+            <div className="flex justify-between items-start mb-4">
+              <div className="h-9 w-9 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center">
+                <CalendarIcon className="h-4 w-4" />
               </div>
             </div>
-
-            <div className="flex gap-4 pt-6 border-t border-neutral-800">
-              <button
-                onClick={logout}
-                className="flex-1 bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 text-red-300 py-3 rounded-xl font-medium transition-all"
-              >
-                Logout
-              </button>
-              <button
-                className="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl font-medium transition-all shadow-lg hover:shadow-green-500/25"
-              >
-                View Appointments
-              </button>
+            <div>
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Active Sessions</p>
+              <h2 className="text-2xl font-bold text-foreground mt-1">{activeCount}</h2>
             </div>
-          </div>
-        </div>
+         </div>
+
+         <div className="bg-card/50 border border-border rounded-2xl p-6 shadow-sm relative overflow-hidden group">
+            <div className="flex justify-between items-start mb-4">
+              <div className="h-9 w-9 rounded-xl bg-neutral-500/10 text-neutral-400 flex items-center justify-center">
+                <ShieldCheck className="h-4 w-4" />
+              </div>
+            </div>
+            <div>
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Medical Compliance</p>
+              <h2 className="text-2xl font-bold text-foreground mt-1">100%</h2>
+            </div>
+         </div>
       </div>
+
+      {/* Main Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+         
+          <div className="lg:col-span-2 space-y-8">
+             {/* Quick Actions Grid */}
+             <section className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {[
+                  { label: 'Network', icon: UserCircle, path: '/doctors', color: 'emerald', detail: 'Specialists' },
+                  { label: 'Schedule', icon: CalendarIcon, path: '/bookings', color: 'indigo', detail: 'Visits' },
+                  { label: 'Records', icon: FileText, path: '/records', color: 'rose', detail: 'Data Vault' },
+                  { label: 'Assistant', icon: Bot, path: '/assistant', color: 'amber', detail: 'AI Health' },
+                ].map((action, i) => (
+                  <button 
+                    key={i}
+                    onClick={() => window.location.href = action.path}
+                    className="group bg-card border border-border p-5 rounded-2xl flex flex-col items-start gap-3 hover:border-primary/20 hover:bg-white/[0.02] transition-all text-left shadow-sm"
+                  >
+                     <div className={`h-10 w-10 rounded-xl bg-${action.color}-500/10 border border-${action.color}-500/10 flex items-center justify-center text-${action.color}-500 group-hover:scale-110 transition-transform`}>
+                        <action.icon className="h-4.5 w-4.5" />
+                     </div>
+                     <div>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-foreground">{action.label}</p>
+                        <p className="text-[9px] font-medium text-muted-foreground uppercase tracking-tighter mt-0.5">{action.detail}</p>
+                     </div>
+                  </button>
+                ))}
+             </section>
+
+             <section>
+               <div className="flex items-center justify-between mb-4">
+                 <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">Next Appointment</h3>
+                 <button 
+                  onClick={() => window.location.href = '/bookings'}
+                  className="text-sm font-medium text-primary hover:opacity-80 flex items-center gap-1"
+                 >
+                   View full schedule <ArrowRight className="h-4 w-4" />
+                 </button>
+               </div>
+              
+              {upcomingApt ? (
+                <div className="bg-card rounded-[24px] border border-border p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-sm hover:border-primary/30 transition-colors">
+                  <div className="flex items-center gap-6">
+                    <div className="h-16 w-16 rounded-2xl bg-muted border border-border flex flex-col items-center justify-center shrink-0">
+                      <span className="text-xs font-bold text-muted-foreground uppercase">
+                        {upcomingApt.date.includes('-') ? new Date(upcomingApt.date).toLocaleString('default', { month: 'short' }) : 'Next'}
+                      </span>
+                      <span className="text-xl font-semibold text-foreground leading-none mt-1">
+                        {upcomingApt.date.includes('-') ? upcomingApt.date.split('-')[2].substring(0,2) : 'Apt'}
+                      </span>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-foreground">{upcomingApt.doctor}</h4>
+                      <p className="text-sm text-muted-foreground font-medium mt-1 flex items-center gap-1.5">
+                        <Clock className="h-3.5 w-3.5" /> {upcomingApt.time}
+                        <span className="mx-1.5 text-border">•</span>
+                        <MapPin className="h-3.5 w-3.5" /> General Hospital
+                      </p>
+                      <div className="mt-3 flex items-center gap-2">
+                        <span className="text-[11px] font-semibold text-indigo-500 bg-indigo-500/10 px-2 py-0.5 rounded-full uppercase tracking-wider">
+                          {upcomingApt.status}
+                        </span>
+                        <span className="text-[11px] font-semibold text-muted-foreground bg-muted px-2 py-0.5 rounded-full capitalize">
+                          {upcomingApt.reason || 'Consultation'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-3 md:w-32 shrink-0">
+                    <button className="w-full bg-primary text-primary-foreground px-4 py-2 rounded-xl text-sm font-medium hover:opacity-90 transition-all">Manage</button>
+                    <button className="w-full bg-card border border-border text-foreground px-4 py-2 rounded-xl text-sm font-medium hover:bg-muted transition-all">Reschedule</button>
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-card rounded-[24px] border border-border p-10 flex flex-col items-center justify-center text-center shadow-sm">
+                  <div className="h-12 w-12 rounded-full bg-muted border border-border flex items-center justify-center text-muted-foreground mb-4">
+                     <CalendarIcon className="h-5 w-5" />
+                  </div>
+                  <h4 className="text-base font-medium text-foreground">No Upcoming Appointments</h4>
+                  <p className="text-sm text-muted-foreground mt-2 max-w-sm">You have a clear schedule. You can use the smart assistant to book your next consultation.</p>
+                </div>
+              )}
+            </section>
+         </div>
+         
+         {/* Right Column: AI Insights / Timeline Preview */}
+         <div className="flex flex-col gap-8">
+            <section>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-semibold text-foreground uppercase tracking-wide">AI Insights</h3>
+              </div>
+              
+              <div className="bg-card rounded-[24px] border border-border p-6 flex flex-col gap-5 shadow-sm">
+                 <div className="flex items-start gap-4 p-3 rounded-2xl hover:bg-muted transition-colors cursor-pointer group relative overflow-hidden">
+                    <div className="absolute top-0 right-0 h-full w-24 opacity-10 group-hover:opacity-30 transition-opacity">
+                         <div className="h-full w-full flex items-end px-2 pb-2 gap-[2px]">
+                             {[40, 70, 45, 90, 65, 80, 50].map((h, i) => (
+                                 <div key={i} className="flex-1 bg-amber-500 rounded-sm" style={{ height: `${h}%` }} />
+                             ))}
+                         </div>
+                    </div>
+                    <div className="h-8 w-8 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center shrink-0 mt-0.5 relative z-10">
+                      <Activity className="h-4 w-4" />
+                    </div>
+                    <div className="relative z-10">
+                      <h5 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors font-semibold">Sleep Pattern Irregular</h5>
+                      <p className="text-xs text-muted-foreground mt-1 leading-relaxed">Your smart watch detected inconsistent sleep cycles over the last 3 days.</p>
+                    </div>
+                 </div>
+                 
+                 <div className="h-px w-full bg-border/50" />
+                 
+                 <div className="flex items-start gap-4 p-3 rounded-2xl hover:bg-muted transition-colors cursor-pointer group relative overflow-hidden">
+                    <div className="absolute top-0 right-0 h-full w-24 opacity-10 group-hover:opacity-30 transition-opacity">
+                         <div className="h-full w-full flex items-end px-2 pb-2 gap-[2px]">
+                             {[60, 62, 58, 65, 63, 61, 60].map((h, i) => (
+                                 <div key={i} className="flex-1 bg-emerald-500 rounded-sm" style={{ height: `${h}%` }} />
+                             ))}
+                         </div>
+                    </div>
+                    <div className="h-8 w-8 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0 mt-0.5 relative z-10">
+                      <HeartPulse className="h-4 w-4" />
+                    </div>
+                    <div className="relative z-10">
+                      <h5 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors font-semibold">Blood Pressure Normal</h5>
+                      <p className="text-xs text-muted-foreground mt-1 leading-relaxed">Latest readings show perfectly stabilized blood pressure levels.</p>
+                    </div>
+                 </div>
+                 
+                 <button 
+                  onClick={() => window.location.href = '/vitals'}
+                  className="w-full mt-2 text-xs font-semibold text-muted-foreground hover:text-foreground uppercase tracking-wider flex items-center justify-center gap-1 transition-colors"
+                 >
+                    View Full Report <ChevronRight className="h-3 w-3" />
+                 </button>
+              </div>
+            </section>
+         </div>
+
+      </div>
+      
+      {/* Invisible Voice Agent */}
+      <VoiceAssistant user={user} onCallEnd={fetchData} />
     </div>
   );
 }
-

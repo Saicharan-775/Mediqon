@@ -1,15 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
+
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
+
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
   margin: 0;
-  background-color: black;
+  background-color: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: 'Outfit', sans-serif;
+}
+
+.font-jakarta {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+:root {
+  --radius: 1.25rem;
+  --background: oklch(14% 0.01 260); /* Deep Sophisticated Zinc */
+  --foreground: oklch(98% 0.01 260);
+  --card: oklch(18% 0.02 260);
+  --card-foreground: oklch(98% 0.01 260);
+  --popover: oklch(18% 0.02 260);
+  --popover-foreground: oklch(98% 0.01 260);
+  --primary: oklch(65% 0.18 260);
+  --primary-foreground: oklch(14% 0.01 260);
+  --secondary: oklch(24% 0.02 260);
+  --secondary-foreground: oklch(98% 0.01 260);
+  --muted: oklch(22% 0.02 260);
+  --muted-foreground: oklch(70% 0.02 260);
+  --accent: oklch(24% 0.02 260);
+  --accent-foreground: oklch(98% 0.01 260);
+  --destructive: oklch(60% 0.18 25);
+  --border: oklch(28% 0.02 260);
+  --input: oklch(28% 0.03 260);
+  --ring: oklch(65% 0.18 260);
+}
+
+.light {
+  --background: oklch(100% 0 0);
+  --foreground: oklch(25% 0.02 260);
+  --card: oklch(100% 0 0);
+  --card-foreground: oklch(25% 0.02 260);
+  --popover: oklch(100% 0 0);
+  --popover-foreground: oklch(25% 0.02 260);
+  --primary: oklch(55% 0.18 260);
+  --primary-foreground: oklch(100% 0 0);
+  --secondary: oklch(97% 0.01 260);
+  --secondary-foreground: oklch(25% 0.02 260);
+  --muted: oklch(98% 0.01 260);
+  --muted-foreground: oklch(60% 0.02 260);
+  --accent: oklch(96% 0.02 260);
+  --accent-foreground: oklch(25% 0.02 260);
+  --destructive: oklch(60% 0.18 25);
+  --border: oklch(94% 0.01 260);
+  --input: oklch(94% 0.01 260);
+  --ring: oklch(55% 0.18 260);
 }
 
 @theme inline {
@@ -38,95 +97,122 @@ body {
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-}
-
-:root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border/60 outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
   }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  opacity: 0.2;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-foreground);
+  opacity: 0.5;
+}
+
+/* Premium Utilities */
+.glass {
+  background: var(--card);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+}
+
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, #10b981, #3b82f6);
+}
+
+/* Premium Animations */
+.fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Premium React Datepicker Overrides */
+.premium-datepicker .react-datepicker {
+  @apply bg-card border border-border rounded-[2rem] p-6 font-sans shadow-[0_20px_50px_rgba(0,0,0,0.3)] select-none;
+}
+
+.premium-datepicker .react-datepicker__header {
+  @apply bg-transparent border-none p-0;
+}
+
+.premium-datepicker .react-datepicker__current-month {
+  @apply text-foreground font-black uppercase tracking-[0.2em] text-[10px] mb-8 mt-2 opacity-80;
+}
+
+.premium-datepicker .react-datepicker__day-names {
+  @apply flex justify-between mb-4 px-2;
+}
+
+.premium-datepicker .react-datepicker__day-name {
+  @apply text-muted-foreground/40 font-black text-[9px] uppercase tracking-tighter w-8 mx-0;
+}
+
+.premium-datepicker .react-datepicker__month {
+  @apply m-0 px-2;
+}
+
+.premium-datepicker .react-datepicker__day {
+  @apply text-foreground font-semibold text-[11px] w-8 h-8 flex items-center justify-center rounded-xl hover:bg-primary/10 hover:text-primary transition-all m-0.5 border border-transparent;
+}
+
+.premium-datepicker .react-datepicker__day--selected {
+  @apply !bg-primary !text-primary-foreground !font-black !shadow-lg !shadow-primary/30 !border-primary;
+}
+
+.premium-datepicker .react-datepicker__day--today {
+  @apply text-primary font-black border-none relative after:content-[''] after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:bg-primary after:rounded-full;
+}
+
+.premium-datepicker .react-datepicker__day--keyboard-selected {
+  @apply bg-primary/10 text-primary border-primary/20;
+}
+
+.premium-datepicker .react-datepicker__day--outside-month {
+  @apply text-muted-foreground/10 pointer-events-none;
+}
+
+.premium-datepicker .react-datepicker__day--disabled {
+  @apply text-muted-foreground/5 cursor-not-allowed hover:bg-transparent;
+}
+
+.premium-datepicker .react-datepicker__navigation {
+  @apply top-8 transition-opacity hover:opacity-100 opacity-60;
+}
+
+.premium-datepicker .react-datepicker__navigation--previous {
+  @apply left-6;
+}
+
+.premium-datepicker .react-datepicker__navigation--next {
+  @apply right-6;
+}
+
+.premium-datepicker .react-datepicker__navigation-icon::before {
+  @apply border-muted-foreground/60 border-[2px] w-2 h-2 transition-colors hover:border-primary;
+}
+
+.premium-datepicker .react-datepicker__month-container {
+  @apply float-none;
 }

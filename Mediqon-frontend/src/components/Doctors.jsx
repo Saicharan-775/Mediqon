@@ -1,10 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import {
-  MagnifyingGlassIcon,
-  StarIcon,
-  FaceFrownIcon,
-} from "@heroicons/react/24/solid";
+import { Icon } from "@iconify/react";
 
 /* ================= DATA ================= */
 
@@ -171,17 +167,17 @@ export default function Doctors() {
           </div>
 
           {/* SEARCH */}
-          <div className="relative w-full md:w-80">
-            <MagnifyingGlassIcon className="w-4 h-4 text-neutral-500 absolute left-4 top-1/2 -translate-y-1/2" />
+          <div className="relative w-full md:w-96 group">
+            <Icon icon="solar:magnifer-bold-duotone" className="w-5 h-5 text-neutral-500 absolute left-4 top-1/2 -translate-y-1/2 transition-colors group-focus-within:text-emerald-500" />
             <input
               type="text"
               placeholder="Search doctor or specialty"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="w-full bg-neutral-900 border border-white/10 
-                         rounded-full pl-10 pr-4 py-2.5 text-sm
-                         focus:outline-none focus:border-green-500
-                         transition"
+              className="w-full bg-white/[0.03] border border-white/5 
+                         rounded-2xl pl-12 pr-4 py-3.5 text-sm
+                         focus:outline-none focus:border-emerald-500/50
+                         focus:bg-white/[0.05] transition-all"
             />
           </div>
         </div>
@@ -229,11 +225,11 @@ function FilterPill({ label, active, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-2 rounded-full text-sm border transition-all duration-300
+      className={`px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest border transition-all duration-300
         ${
           active
-            ? "bg-green-500 text-black border-green-500"
-            : "bg-neutral-900 text-neutral-400 border-white/10 hover:border-green-500/40"
+            ? "bg-emerald-500 text-black border-emerald-500 shadow-[0_10px_20px_rgba(16,185,129,0.2)]"
+            : "bg-white/[0.02] text-neutral-500 border-white/[0.05] hover:border-emerald-500/30 hover:text-white"
         }`}
     >
       {label}
@@ -246,49 +242,49 @@ function FilterPill({ label, active, onClick }) {
 function DoctorCard({ doctor, index }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
+      transition={{ delay: index * 0.05, duration: 0.6 }}
       viewport={{ once: true }}
-      className="group bg-neutral-900/70 backdrop-blur-xl 
-                 border border-white/10 rounded-2xl overflow-hidden
-                 hover:border-green-500/40 
-                 transition-all duration-300
-                 hover:shadow-[0_0_40px_rgba(34,197,94,0.15)]"
+      className="group bg-white/[0.02] backdrop-blur-3xl 
+                 border border-white/[0.05] rounded-[2rem] overflow-hidden
+                 hover:border-emerald-500/20 
+                 transition-all duration-500
+                 hover:bg-white/[0.04]
+                 hover:shadow-[0_30px_60px_-12px_rgba(0,0,0,0.5)]"
     >
       {/* IMAGE */}
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-56 m-3 rounded-[1.5rem] overflow-hidden bg-neutral-800">
         <img
           src={doctor.image}
           alt={doctor.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          onError={(e) => {
-            e.target.src = doctor.image; // Use SVG fallback
-          }}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
+        <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 flex items-center gap-1.5">
+           <Icon icon="solar:star-bold" className="w-3 h-3 text-yellow-400" />
+           <span className="text-[10px] font-bold">{doctor.rating}</span>
+        </div>
       </div>
 
       {/* INFO */}
-      <div className="p-5">
-        <h3 className="font-semibold text-lg">{doctor.name}</h3>
-        <p className="text-sm text-neutral-400">{doctor.role}</p>
+      <div className="p-6 pt-2">
+        <h3 className="font-jakarta text-xl font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">{doctor.name}</h3>
+        <p className="text-xs font-bold uppercase tracking-widest text-emerald-500/60">{doctor.role}</p>
 
-        <div className="flex items-center gap-4 text-xs text-neutral-400 mt-3">
-          <span className="flex items-center gap-1">
-            <StarIcon className="w-4 h-4 text-yellow-400" />
-            {doctor.rating}
-          </span>
-          <span>{doctor.experience}</span>
+        <div className="flex items-center gap-6 text-xs text-neutral-500 mt-5 border-y border-white/[0.05] py-4">
+          <div className="flex flex-col gap-1">
+             <span className="text-[10px] uppercase font-bold text-neutral-600">Experience</span>
+             <span className="text-white">{doctor.experience}</span>
+          </div>
+          <div className="w-px h-8 bg-white/[0.05]" />
+          <div className="flex flex-col gap-1">
+             <span className="text-[10px] uppercase font-bold text-neutral-600">Availability</span>
+             <span className="text-emerald-400">{doctor.available}</span>
+          </div>
         </div>
 
-        <p className="text-xs text-green-400 mt-2">
-          Available {doctor.available}
-        </p>
-
-        {/* BUTTON */}
-        <button className="mt-5 w-full rounded-full bg-green-500 text-black py-2.5 text-sm font-medium 
-                           hover:bg-green-400 transition">
-          Book Appointment
+        <button className="mt-6 w-full rounded-2xl bg-white text-black py-4 text-[10px] font-black uppercase tracking-[0.15em] transition-all hover:scale-[1.02] hover:bg-emerald-500 active:scale-95 cursor-pointer">
+          Book Session
         </button>
       </div>
     </motion.div>
@@ -305,7 +301,7 @@ function EmptyState({ onReset }) {
       <div className="w-16 h-16 rounded-full bg-neutral-900 
                       border border-white/10 
                       flex items-center justify-center mb-6">
-        <FaceFrownIcon className="w-8 h-8 text-neutral-500" />
+        <Icon icon="solar:sad-circle-bold-duotone" className="w-8 h-8 text-neutral-500" />
       </div>
 
       <h3 className="text-xl font-semibold text-white">

@@ -1,0 +1,372 @@
+{
+  "doctors": [
+    {
+      "name": "Dr. Anil Kumar",
+      "id": "d3d4fcc9-2add-401a-9410-c04c7cf97311"
+    },
+    {
+      "name": "Dr. Sarah Johnson",
+      "id": "0cf85fbb-d233-47d7-be3a-9ec32fb7649e"
+    },
+    {
+      "name": "Dr. Michael Chen",
+      "id": "198ef455-93b0-4440-8c0f-cf024d604055"
+    },
+    {
+      "name": "Dr. Sarah Johnson",
+      "id": "81c7d0f2-6389-4e2f-a1a8-dee0159e128b"
+    },
+    {
+      "name": "Dr. Sarah Johnson",
+      "id": "2165a354-8905-4caf-9c8f-ae5ca95cf5da"
+    },
+    {
+      "name": "Dr. Michael Chen",
+      "id": "531f0107-fe77-4ee4-bd26-7df7ff838521"
+    },
+    {
+      "name": "Dr. Sarah Johnson",
+      "id": "e31c5188-08f1-44c4-9e68-1c8124146a6c"
+    },
+    {
+      "name": "Dr. Michael Chen",
+      "id": "5b5313f5-ccbd-4075-8e48-e48c8f12c8ae"
+    },
+    {
+      "name": "Dr. Sarah Johnson",
+      "id": "312d8565-c969-4b69-b720-b5735f4e092a"
+    },
+    {
+      "name": "Dr. Michael Chen",
+      "id": "64e5a59a-2131-4f77-a1e7-e8c6924dea30"
+    },
+    {
+      "name": "Dr. Anil Kumar",
+      "id": "82d8c565-c969-4b69-b720-b5735f4e09ba"
+    }
+  ],
+  "users": [
+    {
+      "id": "5977a677-0857-48de-9c02-3dc3789635bd",
+      "email": "newopaient@mediqon.com",
+      "role": "doctor"
+    },
+    {
+      "id": "fcc52ec5-5e19-4797-bea5-d51c0b75ac14",
+      "email": "nagillasaicharan775@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "f4c8bf97-f232-463b-9b07-a9cc5db4ff23",
+      "email": "test@example.com",
+      "role": "patient"
+    },
+    {
+      "id": "6210777d-7c10-4934-85a3-232148d432c6",
+      "email": "saicharan@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "973033b6-09fc-44b4-8f52-6166af830e82",
+      "email": "test@mediqon.com",
+      "role": "patient"
+    },
+    {
+      "id": "80a41f94-f085-455f-82c9-c82bd9cba690",
+      "email": "not-an-email",
+      "role": "patient"
+    },
+    {
+      "id": "d63fa304-ba7b-41d5-acfc-0e580242c58a",
+      "email": "no-an-email",
+      "role": "patient"
+    },
+    {
+      "id": "3e14eacf-a0c3-4d11-898a-4fbe6c54afd6",
+      "email": "notfound-an-email",
+      "role": "patient"
+    },
+    {
+      "id": "dda26367-7b4a-47c9-86a2-c5ada9a6db08",
+      "email": "no-tfound-an-email",
+      "role": "patient"
+    },
+    {
+      "id": "733e88cd-53fa-46e3-855e-f326affdcc30",
+      "email": "n000-tfound-an-email",
+      "role": "patient"
+    },
+    {
+      "id": "d66374c2-3d39-4f3f-b1f3-4d80f07d5d2c",
+      "email": "nagillasaicharan111@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "cda41e1d-9426-459c-99ff-5010dedb05e9",
+      "email": "saicharan000@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "c3546211-18dd-4d56-bc7f-49baf2ad7ba6",
+      "email": "nagillasaicharan@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "3182e23d-c6a0-45d7-aba0-98c6f1856f13",
+      "email": "saicharan111@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "1d4aa05a-7c7e-46b6-a333-f4b4f5978606",
+      "email": "nagillasaicharan777@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "08f148a6-499c-48a1-8a67-01745b5b5936",
+      "email": "nagillasaicharan888@gmail.com",
+      "role": "doctor"
+    },
+    {
+      "id": "102c4e07-949f-4b6b-950e-175d9112931b",
+      "email": "nagillasaicharan18@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "d93b12d6-9d87-4697-baae-7d5ed92ada6a",
+      "email": "nagillasaicharan77@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "e8eb804c-e9c4-4557-839d-dd290a5c46bc",
+      "email": "nagillasaicharan321@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "19d237cc-f420-49fc-b9cf-96e8c12d08d7",
+      "email": "nagillasaicharan7777@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "db75261a-bd68-4117-ba18-f074a43a195b",
+      "email": "nagillasaicharan999@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "83b70496-b51a-45e8-ba6d-ed68236bb2f0",
+      "email": "Saicharan777@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "ce18d994-ca8c-4c4b-a421-c6d2f7490c3c",
+      "email": "nagillasaicharan124@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "93a038eb-ee3e-46cd-aacf-0fd8573c3414",
+      "email": "nagillasaicharan8125@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "8b33bdcb-38b7-4786-adf4-b882c10d3dfa",
+      "email": "nagillasaicharan12345@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "1a80ce3b-956a-4849-a53a-fe5a884a906f",
+      "email": "nagillasaicharan123@gmail.com",
+      "role": "patient"
+    },
+    {
+      "id": "de3b29d0-df2b-4a4b-8c27-8e88e6e2dde9",
+      "email": "nagillasaicharan345@gmail.com",
+      "role": "doctor"
+    },
+    {
+      "id": "7d2dcba1-13cf-4524-bf1f-dd95e43a5ad6",
+      "email": "patient@example.com",
+      "role": "patient"
+    }
+  ],
+  "appointments": [
+    {
+      "id": "df0a8a92-8b9c-41da-8558-8079d41370cb",
+      "status": "BOOKED",
+      "appointmentDate": "2026-02-08T18:30:00.000Z"
+    },
+    {
+      "id": "47c8e398-cfb9-4eea-9358-47345a0f7278",
+      "status": "BOOKED",
+      "appointmentDate": "2026-02-08T18:30:00.000Z"
+    },
+    {
+      "id": "cda60dd1-eb4f-4ef8-9aeb-bbe938057695",
+      "status": "COMPLETED",
+      "appointmentDate": "2026-02-08T18:30:00.000Z"
+    },
+    {
+      "id": "7cdd8ef5-5237-4ab0-b1aa-bccc11718f67",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-23T18:30:00.000Z"
+    },
+    {
+      "id": "64e5a59a-2131-4f77-a1e7-e8c6924dea30",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-24T18:30:00.000Z"
+    },
+    {
+      "id": "a7197d6b-9001-421f-b984-be1a78e20266",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-24T18:30:00.000Z"
+    },
+    {
+      "id": "b1124aa7-42cf-4679-8af8-f47ba8ce460b",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-04T18:30:00.000Z"
+    },
+    {
+      "id": "2ed053b7-b96f-4f15-95d4-6fa1add77a28",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-24T18:30:00.000Z"
+    },
+    {
+      "id": "415ed829-1920-4a00-80ad-58b8089cbe98",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-24T18:30:00.000Z"
+    },
+    {
+      "id": "a9848c8e-4218-444b-abcc-482893d98652",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-24T18:30:00.000Z"
+    },
+    {
+      "id": "0a2d7e4f-db10-4928-b208-79d0a1f188f1",
+      "status": "CANCELLED",
+      "appointmentDate": "2026-03-24T18:30:00.000Z"
+    },
+    {
+      "id": "28a0c95c-0d7a-40b2-9d4f-4812b62ac8ea",
+      "status": "CANCELLED",
+      "appointmentDate": "2026-03-24T18:30:00.000Z"
+    },
+    {
+      "id": "a6d466a0-409d-4ddd-a144-d137957461a0",
+      "status": "CANCELLED",
+      "appointmentDate": "2026-03-24T18:30:00.000Z"
+    },
+    {
+      "id": "d1889689-97f1-4bf0-8fe8-01599da4e0f7",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-23T18:30:00.000Z"
+    },
+    {
+      "id": "b0d4b343-6774-4855-b464-2e1a528a4a4b",
+      "status": "CANCELLED",
+      "appointmentDate": "2026-03-24T18:30:00.000Z"
+    },
+    {
+      "id": "a7f03a78-95ce-465a-a8c7-5db679b71f8f",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-24T18:30:00.000Z"
+    },
+    {
+      "id": "2c6e3390-4649-4a1f-8cee-7a09d2424fbb",
+      "status": "CANCELLED",
+      "appointmentDate": "2026-03-24T18:30:00.000Z"
+    },
+    {
+      "id": "bd4e9c41-9f69-40ea-8899-18df47e6b7e2",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-27T18:30:00.000Z"
+    },
+    {
+      "id": "9af4b6db-664d-43eb-ad0b-ace9d7015ab3",
+      "status": "CANCELLED",
+      "appointmentDate": "2026-03-24T18:30:00.000Z"
+    },
+    {
+      "id": "f6978416-d61e-47b4-8dcc-446b3771a80a",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-25T18:30:00.000Z"
+    },
+    {
+      "id": "9ca581dc-6ad2-4962-8fb4-f29cd1531397",
+      "status": "CANCELLED",
+      "appointmentDate": "2026-03-27T18:30:00.000Z"
+    },
+    {
+      "id": "11551b81-f1a1-4618-91fa-18f0d251a6f5",
+      "status": "CANCELLED",
+      "appointmentDate": "2026-03-24T18:30:00.000Z"
+    },
+    {
+      "id": "27b6cf42-6a0f-4a5a-a0da-b1f0f305419c",
+      "status": "CANCELLED",
+      "appointmentDate": "2026-03-24T18:30:00.000Z"
+    },
+    {
+      "id": "79c8509e-aa5e-4321-b6fb-1b884b562b1b",
+      "status": "CANCELLED",
+      "appointmentDate": "2026-03-28T18:30:00.000Z"
+    },
+    {
+      "id": "e6cabb5a-ae03-422d-bb5e-93e0129304bd",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-28T18:30:00.000Z"
+    },
+    {
+      "id": "10a012b9-151b-489c-93c6-d92b06a113fc",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-26T18:30:00.000Z"
+    },
+    {
+      "id": "773edd3f-a373-486b-93a2-2518cab61e92",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-28T18:30:00.000Z"
+    },
+    {
+      "id": "a063d8c7-a3e6-4b11-a3ce-eac81af73091",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-28T18:30:00.000Z"
+    },
+    {
+      "id": "cd02a9ee-9d73-48f2-bdf7-32ea1786a207",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-28T18:30:00.000Z"
+    },
+    {
+      "id": "3f5823e9-b66a-4005-a187-d362ef6889a2",
+      "status": "CANCELLED",
+      "appointmentDate": "2026-03-29T18:30:00.000Z"
+    },
+    {
+      "id": "185ea2c7-4f90-4ec3-abdb-407551c4c767",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-27T18:30:00.000Z"
+    },
+    {
+      "id": "9c65bf90-4b7f-4ab5-bc71-e2c1732877f4",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-28T18:30:00.000Z"
+    },
+    {
+      "id": "49eae3af-d3a2-4b67-a6d2-05cbe9c7e732",
+      "status": "CANCELLED",
+      "appointmentDate": "2026-03-28T18:30:00.000Z"
+    },
+    {
+      "id": "7a793aa6-2a5f-4ff3-bf98-befccf6224a6",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-28T18:30:00.000Z"
+    },
+    {
+      "id": "caa059ec-2a2d-4aa5-ae6a-7d98855b69f6",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-28T18:30:00.000Z"
+    },
+    {
+      "id": "391b4d98-2d3e-450d-8f6d-dd4145e13e23",
+      "status": "BOOKED",
+      "appointmentDate": "2026-03-28T18:30:00.000Z"
+    }
+  ]
+}

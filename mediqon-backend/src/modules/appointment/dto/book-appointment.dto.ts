@@ -1,4 +1,4 @@
-import { IsUUID, IsDateString } from 'class-validator';
+import { IsUUID, IsDateString, IsString, IsOptional } from 'class-validator';
 
 export class BookAppointmentDto {
   @IsUUID()
@@ -12,4 +12,12 @@ export class BookAppointmentDto {
 
   @IsDateString()
   appointmentDate: string; // YYYY-MM-DD
+
+  @IsOptional()
+  @IsString()
+  patient_name?: string;
+
+  @IsOptional()
+  @IsString()
+  reason?: string;
 }
