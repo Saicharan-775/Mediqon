@@ -1,3 +1,8 @@
+/**
+ * Mediqon Backend Engine
+ * Scalable modular architecture for premium healthcare data processing.
+ * @version 1.0.0
+ */
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
